@@ -2,8 +2,10 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\PublishProject;
 use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
@@ -56,6 +58,11 @@ class Project extends Resource
                 //->alwaysShow()
                 ->rules('required'),
             //x`Number::make('price')->min(1)->max(1000)->step(0.01),
+
+            // Boolean::make('stateProject')
+            //     ->trueValue('Done')
+            //     ->falseValue('In Progres'),
+            
             BelongsTo::make('User'),   
         ];
     }
@@ -101,6 +108,8 @@ class Project extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new PublishProject
+        ];
     }
 }
